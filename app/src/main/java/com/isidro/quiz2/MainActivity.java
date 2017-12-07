@@ -36,18 +36,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void rem(View view){
+        String username = preferences.getString("username","");
+        String password = preferences.getString("password","");
+        etUsername.setText(username,TextView.BufferType.EDITABLE);
+        etPassword.setText(password,TextView.BufferType.EDITABLE);
+    }
+
+    public void login(View view){
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("username", etUsername.getText().toString());
         editor.putString("password", etPassword.getText().toString());
         editor.commit();
-        Toast.makeText(this, "Data is remembered!", Toast.LENGTH_SHORT).show();
+        nextAct();
     }
-
-    public void login(View view){
-
-        Intent intent = new Intent(MainActivity.this, welcome.class);
+    public void nextAct() {
+        Intent intent = new Intent(this, welcome.class);
         intent.putExtra("username", etUsername.getText().toString());
         startActivity(intent);
     }
-
 }
